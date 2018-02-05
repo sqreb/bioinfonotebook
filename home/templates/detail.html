@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <header class="navber navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <div>{% block header %}Defalt detail header{% endblock %}</div>
+    </header>
+    <div class="w-100"></div>
+
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+            <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+                {% include 'nav.html' %}
+            </div>
+            <div class="d-none d-xl-block col-xl-2 bd-toc">{% block right_ad %}Default ad{% endblock %}</div>
+            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+                <div class="row">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Library</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="w-100"></div>
+                {% block main %}Default detail{% endblock %}
+            </main>
+        </div>
+    </div>
+{% endblock %}
