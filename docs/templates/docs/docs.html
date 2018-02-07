@@ -1,0 +1,8 @@
+{% extends 'detail.html' %}
+{% load djangomarkdown %}
+
+{% block main %}
+    <div>
+        {{ docmd|djangomarkdown }}
+    </div>
+{% endblock %}
