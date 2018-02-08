@@ -33,16 +33,22 @@ class InfoTag(Tag):
     level = models.CharField(max_length=3, choices=level)
 
 
+class MataTag(Tag):
+    pass
+
+
 class Doc(models.Model):
     doc_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     doc = models.TextField()
+    mata_tag = models.ForeignKey(MataTag, on_delete=models.SET_NULL, null=True)
     search_tags = models.ManyToManyField(SearchTag)
     info_tags = models.ManyToManyField(InfoTag)
     priority = models.IntegerField(default=0)
     url = models.CharField(max_length=255, null=True, unique=True)
     public = models.BooleanField(default=False)
     root = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.title

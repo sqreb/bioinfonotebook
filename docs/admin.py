@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SearchTag, InfoTag, Doc, DocRel
+from .models import SearchTag, InfoTag, MataTag, Doc, DocRel
 
 
 class DocModelAdmin(admin.ModelAdmin):
@@ -18,3 +18,4 @@ admin.site.register(Doc, DocModelAdmin)
 admin.site.register(DocRel, DocRelModelAdmin)
 admin.site.register(SearchTag)
 admin.site.register(InfoTag, InfoTagModelAdmin)
+admin.site.register(MataTag)

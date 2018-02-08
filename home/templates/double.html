@@ -8,11 +8,8 @@
 
     <div class="container-fluid">
         <div class="row flex-xl-nowrap">
-            <div class="col-12 col-md-3 col-xl-2 bd-sidebar bg_grey">
-                {% block nav %}Default nav{% endblock %}
-            </div>
             <div class="d-none d-xl-block col-xl-2 bd-toc">{% block right_ad %}Default ad{% endblock %}</div>
-            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+            <main class="col-12 col-md-12 col-xl-10 py-md-3 pl-md-5 bd-content" role="main">
                 {% block main %}Default detail{% endblock %}
             </main>
         </div>

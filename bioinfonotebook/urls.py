@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from django.urls import path
 from home.views import detail
 from docs.views import docs
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^detail', detail),
-    url(r'^docs/(\w+)', docs, name="docs"),
+    url(r'^docs/(\w+)$', docs, name="docs"),
 ]

@@ -1695,7 +1695,7 @@
 }
 
 .nav_div_body {
-    padding-left: 20px;
+    padding-left: 0px;
     padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -1718,5 +1718,41 @@
 
 .nobg {
     background: unset;
+}
+
+:link.black {
+    text-decoration: none;
+    color: #000000;
+}
+
+:visited.black {
+    text-decoration: none;
+    color: #000000;
+}
+
+:hover.black {
+    text-decoration: none;
+    color: #000000;
+}
+
+:active.black {
+    text-decoration: none;
+    color: #000000;
+}
+
+.black {
+    color: #000000;
+}
+
+.bg_grey {
+    background-color: rgba(241, 241, 241, 1);
+}
+
+.grey {
+    color: rgba(241, 241, 241, 1);
+}
+
+li.no_dot {
+    list-style-type: none
 }
 /*# sourceMappingURL=docs.min.css.map */

@@ -1,30 +1,42 @@
-{% extends 'detail.html' %}
+{% extends 'triple.html' %}
 {% load djangomarkdown %}
 
-{% block title %}得胡的bioinfo notebook|{{ doc.title }}{% endblock %}
+{% block title %}{{ doc.title }}&nbsp;-&nbsp;{{ doc.mata_tag }}&nbsp;-&nbsp;得胡的bioinfo&nbsp;notebook{% endblock %}
 
 {% block nav %}
     <div>
-    <form class="bd-search d-flex align-items-center">
-    <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
-        <input class="form-control ds-input" id="search-input" placeholder="Search..." autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" style="position: relative; vertical-align: top;" dir="auto" type="search">
-        <pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: optimizelegibility; text-transform: none;"></pre>
-        <span class="ds-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;" role="listbox" id="algolia-autocomplete-listbox-0">
-            <div class="ds-dataset-1"></div>
-        </span>
-    </span>
-        <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#left_nav" aria-controls="left_nav" aria-expanded="false" aria-label="Left navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
-                <title>Menu</title>
-                <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-            </svg>
-        </button>
-    </form>
+        <form class="bd-search d-flex align-items-center" action="" method="post">
+            {% csrf_token %}
+            <span class="algolia-autocomplete algolia-autocomplete-left" style="position: relative; display: inline-block; direction: ltr;">
+                <input class="form-control ds-input" type="text" name="search-input" id="search-input" placeholder="Search..." style="position: relative; vertical-align: top;">
+                <span>
+                    {% if search_tag %}
+                        <ul style="margin-bottom: 0px; padding-left: 20px;">
+                        {% for doc in search_docs %}
+                            <li><a class="black" href="/docs/{{ doc.url }}">{{ doc.title }}</a></li>
+                        {% empty %}
+                            <li>Sorry, no results found.</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </span>
+            </span>
+            <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse"
+                    data-target="#left_nav">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
+                    <title>Menu</title>
+                    <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10"
+                          d="M4 7h22M4 15h22M4 23h22"></path>
+                </svg>
+            </button>
+        </form>
 
-    <nav id="left_nav" class="bd-links collapse">
-        {{ nav }}
-    </nav>
-</div>
+
+        <nav id="left_nav" class="bd-links collapse bg_grey" style="padding-bottom: 0px;">
+            <h3 class="nav-link">{{ doc.mata_tag.tag }}</h3>
+            {{ nav }}
+        </nav>
+    </div>
 
 {% endblock %}
 
@@ -36,7 +48,7 @@
                     {% if forloop.last %}
                         <li class="breadcrumb-item active" aria-current="page">{{ doc.title }}</li>
                     {% else %}
-                        <li class="breadcrumb-item"><a href="/docs/{{ doc.url }}">{{ doc.title }}</a></li>
+                        <li class="breadcrumb-item"><a class="black" href="/docs/{{ doc.url }}">{{ doc.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ol>
