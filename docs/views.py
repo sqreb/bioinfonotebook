@@ -8,10 +8,11 @@ def text2word(text):
     text = text.upper()
     return list(filter(lambda x: x, re.split(re.compile("\s"), text)))
 
-class DocGraph(object):
+class DocInfo(object):
     doc_graph = nx.DiGraph()
     roots = list()
     search_dict = dict()
+    mata_nav = dict()
 
     @classmethod
     def reset(cls):
@@ -27,6 +28,7 @@ class DocGraph(object):
             assert max([degree for node, degree in cls.doc_graph.in_degree()]) <= 1
         cls.roots = cls.find_roots()
         cls.search_dict = cls.build_search_dict()
+        cls.mata_nav = cls.find_mata_nav()
 
     @classmethod
     def find_roots(cls):
@@ -102,12 +104,22 @@ class DocGraph(object):
                 search_dict[word].add(node)
         return search_dict
 
-DocGraph.reset()
-
-
+    @classmethod
+    def find_mata_nav(cls):
+        mata_dict = dict()
+        for root in cls.roots:
+            mata = root.mata_tag.tag
+            if mata not in mata_dict.keys():
+                mata_dict[mata] = list()
+            mata_dict[mata].append(root)
+        for li in mata_dict.values():
+            li.sort(key=lambda x: x.title)
+        return mata_dict
 
 
 def docs(request, url_name):
+    if not DocInfo.doc_graph.nodes:
+        DocInfo.reset()
     try:
         doc = Doc.objects.get(url=url_name)
     except Doc.DoesNotExist:
@@ -116,9 +128,9 @@ def docs(request, url_name):
         raise Http404("Multi hits")
     if not doc.public:
         raise Http404("No public")
-    doc_path = DocGraph.find_root_path(url_name)[::-1]
-    subgraph = DocGraph.find_subgraph(url_name)
-    nav = DocGraph.node2html(subgraph, doc_path[0], "docs")
+    doc_path = DocInfo.find_root_path(url_name)[::-1]
+    subgraph = DocInfo.find_subgraph(url_name)
+    nav = DocInfo.node2html(subgraph, doc_path[0], "docs")
 
     search_docs = list()
     search_tag = False
@@ -127,9 +139,9 @@ def docs(request, url_name):
         doc_dict = dict()
         for word in text2word(search_text):
             search_tag = True
-            if word not in DocGraph.search_dict.keys():
+            if word not in DocInfo.search_dict.keys():
                 continue
-            for doc in DocGraph.search_dict[word]:
+            for doc in DocInfo.search_dict[word]:
                 if doc not in doc_dict.keys():
                     doc_dict[doc] = 0
                 doc_dict[doc] += 1
@@ -139,4 +151,6 @@ def docs(request, url_name):
                   {"doc": doc, "doc_path": doc_path,
                    "nav": mark_safe(nav),
                    "search_tag": search_tag,
-                   "search_docs": search_docs})
+                   "search_docs": search_docs,
+                   "mata_nav": DocInfo.mata_nav})
+    pass

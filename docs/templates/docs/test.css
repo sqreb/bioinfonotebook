@@ -7,7 +7,7 @@
  */
 .bd-navbar {
     min-height: 4rem;
-    background-color: #3C3C3C;
+    background-color: #563d7c;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1)
 }
 
@@ -398,13 +398,13 @@
 }
 
 .bd-search .form-control:focus {
-    border-color: #6c757d;
-    box-shadow: 0 0 0 3px rgba(110, 110, 110, .25)
+    border-color: #7952b3;
+    box-shadow: 0 0 0 3px rgba(121, 82, 179, .25)
 }
 
 .bd-search-docs-toggle {
     line-height: 1;
-    color: #6c757d;
+    color: #212529
 }
 
 .bd-sidenav {
@@ -1682,77 +1682,4 @@
     background-color: rgba(208, 189, 236, .15) !important
 }
 
-.nav_ul {
-    padding-left: 0px;
-    margin-bottom: 0px;
-}
-
-.nav_div_header {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-.nav_div_body {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-.nav_div_link {
-    font-size: 14px
-}
-
-.nav_div_title {
-    font-size: 18px
-}
-
-.transparent {
-    filter:alpha(opacity=0);
-	-moz-opacity:0;
-	-khtml-opacity: 0;
-	opacity: 0;
-}
-
-.nobg {
-    background: unset;
-}
-
-:link.black {
-    text-decoration: none;
-    color: #000000;
-}
-
-:visited.black {
-    text-decoration: none;
-    color: #000000;
-}
-
-:hover.black {
-    text-decoration: none;
-    color: #000000;
-}
-
-:active.black {
-    text-decoration: none;
-    color: #000000;
-}
-
-.black {
-    color: #000000;
-}
-
-.bg_grey {
-    background-color: rgba(241, 241, 241, 1);
-}
-
-.grey {
-    color: rgba(241, 241, 241, 1);
-}
-
-li.no_dot {
-    list-style-type: none
-}
 /*# sourceMappingURL=docs.min.css.map */

@@ -41,6 +41,7 @@ class Doc(models.Model):
     doc_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     doc = models.TextField()
+    description = models.TextField(default="")
     mata_tag = models.ForeignKey(MataTag, on_delete=models.SET_NULL, null=True)
     search_tags = models.ManyToManyField(SearchTag)
     info_tags = models.ManyToManyField(InfoTag)
@@ -48,7 +49,6 @@ class Doc(models.Model):
     url = models.CharField(max_length=255, null=True, unique=True)
     public = models.BooleanField(default=False)
     root = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.title

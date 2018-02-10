@@ -1,0 +1,59 @@
+<div class="col-12">
+    <span class="row" style="margin-right: -22px;">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+            <span class="dropdown_div" style="position: relative; display: inline-block; direction: ltr;">
+            <a class="navbar-brand" href="/" id="header_logo">Home</a>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown" id="header_nav_btn">
+            {% for mata, roots in mata_nav.items %}
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop{{ mata }}" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{ mata }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop{{ mata }}">
+                        {% for root in roots %}
+                            <a class="dropdown-item" href="/docs/{{ root.url }}">{{ root.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+                <a href="#">
+                    <button type="button" class="btn btn-secondary">About us</button>
+                </a>
+            </div>
+        </span>
+            <button id="header_nav_dropdown_tv" class="btn btn-link dropdown_nav_btn p-0 ml-3" type="button" data-toggle="collapse"
+                    data-target="#head_nav_vertical">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
+                    <title>Menu</title>
+                    <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10"
+                          d="M4 7h22M4 15h22M4 23h22"></path>
+                </svg>
+            </button>
+        </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div id="head_nav_vertical" class="collapse" style="padding-bottom: 0px;">
+        <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown" id="header_nav_btn_vertical">
+            {% for mata, roots in mata_nav.items %}
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop{{ mata }}" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{ mata }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop{{ mata }}">
+                        {% for root in roots %}
+                            <a class="dropdown-item" href="/docs/{{ root.url }}">{{ root.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+                <a href="#">
+                    <button type="button" class="btn btn-secondary">About us</button>
+                </a>
+            </div>
+        </div>
+    </span>
+</div>

@@ -1,14 +1,19 @@
 {% extends 'triple.html' %}
 {% load djangomarkdown %}
 
-{% block title %}{{ doc.title }}&nbsp;-&nbsp;{{ doc.mata_tag }}&nbsp;-&nbsp;得胡的bioinfo&nbsp;notebook{% endblock %}
+{% block title %}{{ doc.title }}&nbsp;·&nbsp;{{ doc.mata_tag }}&nbsp;·&nbsp;得胡的bioinfo&nbsp;notebook{% endblock %}
+{% block description %}{{ doc.description }}{% endblock %}
+{% block keywords %}{{ doc.mata_tag.tag }}, {{ doc.title }}, {% for tag in doc.search_tags.all %} {{ tag.tag }},
+{% endfor %}{% endblock %}
+
 
 {% block nav %}
     <div>
         <form class="bd-search d-flex align-items-center" action="" method="post">
             {% csrf_token %}
-            <span class="algolia-autocomplete algolia-autocomplete-left" style="position: relative; display: inline-block; direction: ltr;">
-                <input class="form-control ds-input" type="text" name="search-input" id="search-input" placeholder="Search..." style="position: relative; vertical-align: top;">
+            <span class="dropdown_div" style="position: relative; display: inline-block; direction: ltr;">
+                <input class="form-control" type="text" name="search-input" id="search-input"
+                       placeholder="Search..." style="position: relative; vertical-align: top;">
                 <span>
                     {% if search_tag %}
                         <ul style="margin-bottom: 0px; padding-left: 20px;">
@@ -21,7 +26,7 @@
                     {% endif %}
                 </span>
             </span>
-            <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse"
+            <button class="btn btn-link dropdown_nav_btn d-md-none p-0 ml-3" type="button" data-toggle="collapse"
                     data-target="#left_nav">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
                     <title>Menu</title>
@@ -31,13 +36,16 @@
             </button>
         </form>
 
-
         <nav id="left_nav" class="bd-links collapse bg_grey" style="padding-bottom: 0px;">
             <h3 class="nav-link">{{ doc.mata_tag.tag }}</h3>
             {{ nav }}
         </nav>
     </div>
 
+{% endblock %}
+
+{% block header %}
+    {% include 'header.html' %}
 {% endblock %}
 
 {% block main %}
@@ -58,4 +66,24 @@
     <div>
         {{ doc.doc|djangomarkdown }}
     </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+    function header() {
+        var header_nav_dropdown_tv_width = $('#header_nav_dropdown_tv').outerWidth();
+            var header_nav_btn_width = $('#header_nav_btn').outerWidth();
+            var header_nav_logo_width = $('#header_logo').outerWidth();
+            var all_width = header_nav_dropdown_tv_width + header_nav_btn_width + header_nav_logo_width;
+            if ($(window).width() - all_width > 30) {
+                $('#header_nav_dropdown_tv').hide();
+                $('#header_nav_btn').show();
+            } else {
+                $('#header_nav_dropdown_tv').show();
+                $('#header_nav_btn').hide();
+            }
+    }
+    $(document).ready(header);
+    $(window).resize(header);
+</script>
 {% endblock %}
