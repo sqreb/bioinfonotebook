@@ -1,4 +1,5 @@
 from django.shortcuts import render, Http404
+from django.views.decorators.cache import cache_page
 from .models import *
 import networkx as nx
 from django.utils.safestring import mark_safe
@@ -116,7 +117,7 @@ class DocInfo(object):
             li.sort(key=lambda x: x.title)
         return mata_dict
 
-
+@cache_page(60 * 15)
 def docs(request, url_name):
     if not DocInfo.doc_graph.nodes:
         DocInfo.reset()
@@ -153,4 +154,14 @@ def docs(request, url_name):
                    "search_tag": search_tag,
                    "search_docs": search_docs,
                    "mata_nav": DocInfo.mata_nav})
-    pass
+
+
+@cache_page(60 * 15)
+def about_us(request, url_name):
+    if not DocInfo.doc_graph.nodes:
+        DocInfo.reset()
+    try:
+        assert url_name in ["about_us", "help_us", "duty"]
+        return render(request, 'about/{0}.html'.format(url_name), {"mata_nav": DocInfo.mata_nav})
+    except:
+        Http404()

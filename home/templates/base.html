@@ -6,7 +6,7 @@
     <meta name="keywords" content="{% block keywords %}得胡, bioinfo, notebook{% endblock %}">
     <meta name="description" content="{% block description %}Defaule description{% endblock %}">
     <meta name="author" content="Dehe Wang">
-    <title>{% block title %}得胡的bioinfo notebook{% endblock %}</title>
+    <title>{% block title %}得胡的bioinfo&nbsp;notebook{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +18,23 @@
     {% block body %}Default Body{% endblock %}
     <script src="/static/js//jquery-3.3.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script>
+    function header() {
+        var header_nav_dropdown_tv_width = $('#header_nav_dropdown_tv').outerWidth();
+            var header_nav_btn_width = $('#header_nav_btn').outerWidth();
+            var header_nav_logo_width = $('#header_logo').outerWidth();
+            var all_width = header_nav_dropdown_tv_width + header_nav_btn_width + header_nav_logo_width;
+            if ($(window).width() - all_width > 30) {
+                $('#header_nav_dropdown_tv').hide();
+                $('#header_nav_btn').show();
+            } else {
+                $('#header_nav_dropdown_tv').show();
+                $('#header_nav_btn').hide();
+            }
+    }
+    $(document).ready(header);
+    $(window).resize(header);
+</script>
     {% block js %}{% endblock %}
 </body>
 </html>

@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from home.views import detail
-from docs.views import docs
+from docs.views import docs, about_us
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^detail', detail),
     url(r'^docs/(\w+)$', docs, name="docs"),
+    url(r'^about/(\w+)$', about_us, name="about_us"),
 ]
