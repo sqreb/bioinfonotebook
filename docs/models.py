@@ -49,6 +49,8 @@ class Doc(models.Model):
     url = models.CharField(max_length=255, null=True, unique=True)
     public = models.BooleanField(default=False)
     root = models.BooleanField(default=False)
+    create_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title

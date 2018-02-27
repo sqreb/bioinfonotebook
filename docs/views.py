@@ -13,7 +13,7 @@ class DocInfo(object):
     doc_graph = nx.DiGraph()
     roots = list()
     search_dict = dict()
-    mata_nav = dict()
+    mata_nav = list()
 
     @classmethod
     def reset(cls):
@@ -115,7 +115,8 @@ class DocInfo(object):
             mata_dict[mata].append(root)
         for li in mata_dict.values():
             li.sort(key=lambda x: x.title)
-        return mata_dict
+        matas = sorted(mata_dict.items())
+        return matas
 
 @cache_page(60 * 15)
 def docs(request, url_name):
@@ -155,13 +156,3 @@ def docs(request, url_name):
                    "search_docs": search_docs,
                    "mata_nav": DocInfo.mata_nav})
 
-
-@cache_page(60 * 15)
-def about_us(request, url_name):
-    if not DocInfo.doc_graph.nodes:
-        DocInfo.reset()
-    try:
-        assert url_name in ["about_us", "help_us", "duty"]
-        return render(request, 'about/{0}.html'.format(url_name), {"mata_nav": DocInfo.mata_nav})
-    except:
-        Http404()
